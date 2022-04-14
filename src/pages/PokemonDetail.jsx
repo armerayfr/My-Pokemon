@@ -5,10 +5,47 @@ import { Card, Container, Button, Row, Badge, Stack } from "react-bootstrap";
 
 function PokemonDetail(props) {
   const { name } = useParams();
+  const [pokemon, setPokemon] = useState({});
+
+  const fetchPokemon = async () => {
+    try {
+      const { data } = await axios.get(
+        `https://pokeapi.co/api/v2/pokemon/${name}`
+      );
+
+      setPokemon(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   useEffect(() => {
-    console.log(name);
-  }, [name]);
+    fetchPokemon();
+  }, [pokemon]);
+
+  const renderTypes = () => {
+    if (pokemon.types !== undefined) {
+      return pokemon.types.map((el) => {
+        return (
+          <Badge bg="secondary" text="white">
+            {el.type.name}
+          </Badge>
+        );
+      });
+    }
+  };
+
+  const renderMoves = () => {
+    if (pokemon.moves !== undefined) {
+      return pokemon.moves.map((el, i) => {
+        return (
+          <div className="bg-light border">
+            {i + 1}. {el.move.name}
+          </div>
+        );
+      });
+    }
+  };
 
   return (
     <Stack gap={3}>
@@ -29,18 +66,20 @@ function PokemonDetail(props) {
                     width={100}
                     style={{ width: "100%" }}
                     src={
-                      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/1.svg"
+                      pokemon.sprites !== undefined
+                        ? pokemon.sprites.other.dream_world.front_default
+                        : null
                     }
                     alt=""
                   />
                 </div>
                 <div className="col-6 d-flex flex-column justify-content-center">
-                  <h4>Nama Pokemon</h4>
+                  <h4>{pokemon.name}</h4>
                   {/* <h5>${"Price"}</h5> */}
                   <Stack gap={3}>
-                    <div>
-                      <Badge bg="primary">Grass</Badge>
-                    </div>
+                    <Stack direction="horizontal" gap={2}>
+                      {renderTypes()}
+                    </Stack>
 
                     <div className="d-flex flex-row align-items-center ">
                       <button
@@ -59,23 +98,7 @@ function PokemonDetail(props) {
         </Card>
       </div>
 
-      <div className="col-md-12 col-lg-12 px-md-4">
-        <div className="bg-light border">Third item</div>
-        <div className="bg-light border">First item</div>
-        <div className="bg-light border">Second item</div>
-        <div className="bg-light border">First item</div>
-        <div className="bg-light border">Second item</div>
-        <div className="bg-light border">Second item</div>
-        <div className="bg-light border">Second item</div>
-        <div className="bg-light border">Second item</div>
-        <div className="bg-light border">Second item</div>
-        <div className="bg-light border">Second item</div>
-        <div className="bg-light border">Second item</div>
-
-        <div className="bg-light border">Second item</div>
-        <div className="bg-light border">Second item</div>
-        <div className="bg-light border">Second item</div>
-      </div>
+      <div className="col-md-12 col-lg-12 px-md-4">{renderMoves()}</div>
     </Stack>
   );
 }
