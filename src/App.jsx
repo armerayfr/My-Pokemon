@@ -13,14 +13,15 @@ function App() {
           <Routes>
             <Route
               exact
-              path="/pokemon-list"
-              element={<PokemonLists />}
+              path="/pokemon-detail/:name"
+              element={<PokemonDetail />}
             ></Route>
             <Route
               exact
-              path="/pokemon-detail"
-              element={<PokemonDetail />}
+              path="/pokemon-list"
+              element={<PokemonLists />}
             ></Route>
+
             <Route
               exact
               path="/my-pokemon-list"

@@ -42,6 +42,7 @@ function PokemonLists() {
           key={i}
           name={pokemon.name}
           img={pokemon.sprites.other.dream_world.front_default}
+          url={pokemon.url}
         />
       );
     });
