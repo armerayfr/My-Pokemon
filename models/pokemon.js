@@ -1,6 +1,6 @@
 class Pokemon {
-  catching() {
-    console.log("catching pokemon");
+  isGetPokemon(prob) {
+    return Math.random() < prob;
   }
 }
 

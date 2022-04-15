@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Swal from "sweetalert2";
 import { useParams } from "react-router-dom";
 import { Card, Container, Button, Row, Badge, Stack } from "react-bootstrap";
+
+import { URL_API } from "../helper";
+import popUp from "../utility/swalfire";
 
 function PokemonDetail(props) {
   const { name } = useParams();
@@ -47,6 +51,20 @@ function PokemonDetail(props) {
     }
   };
 
+  const catchPokemon = async () => {
+    try {
+      const result = await axios.get(
+        `${URL_API}/catch-pokemon?name=${pokemon.name}`
+      );
+
+      const nickName = await popUp.renameResponse(result.data, pokemon);
+
+      console.log(nickName);
+    } catch (e) {
+      popUp.failedResponse(e.response.data);
+    }
+  };
+
   return (
     <Stack gap={3}>
       <div className="col-md-12 col-lg-12 px-md-4">
@@ -83,7 +101,7 @@ function PokemonDetail(props) {
 
                     <div className="d-flex flex-row align-items-center ">
                       <button
-                        onClick={Event}
+                        onClick={catchPokemon}
                         className="btn btn-outline-success me-4"
                         style={{ marginRight: "20px" }}
                       >

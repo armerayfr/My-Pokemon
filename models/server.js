@@ -19,10 +19,6 @@ class Server {
 
   //bind controllers to routes
   routes() {
-    this.app.use(this.paths.home, (req, res) => {
-      res.status(200).send("Hello");
-    });
-
     this.app.use(this.paths.home, require("../routes/pokemon"));
 
     //handling error
