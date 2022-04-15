@@ -23,7 +23,7 @@ class Server {
       res.status(200).send("Hello");
     });
 
-    // this.app.use(this.paths.home, require("../routes/pokemon"));
+    this.app.use(this.paths.home, require("../routes/pokemon"));
 
     //handling error
 
