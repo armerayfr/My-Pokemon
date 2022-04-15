@@ -5,11 +5,11 @@
  */
 
 function fibonacci(input) {
-  if (fibonacci(input) > 3) {
+  if (input < 3) {
     return 1;
+  } else {
+    return fibonacci(input - 1) + fibonacci(input - 2);
   }
-
-  return fibonacci(input) - 1 + fibonacci(input) - 2;
 }
 
-fibonacci(3);
+console.log(fibonacci(4));
