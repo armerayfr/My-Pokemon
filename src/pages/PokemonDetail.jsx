@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Swal from "sweetalert2";
+import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { Card, Container, Button, Row, Badge, Stack } from "react-bootstrap";
 
+import { gotPokemon } from "../redux/actions/pokemonActions";
 import { URL_API } from "../helper";
 import popUp from "../utility/swalfire";
 
 function PokemonDetail(props) {
   const { name } = useParams();
   const [pokemon, setPokemon] = useState({});
+
+  const dispatch = useDispatch();
 
   const fetchPokemon = async () => {
     try {
@@ -59,7 +62,7 @@ function PokemonDetail(props) {
 
       const nickName = await popUp.renameResponse(result.data, pokemon);
 
-      console.log(nickName);
+      dispatch(gotPokemon(pokemon, nickName));
     } catch (e) {
       popUp.failedResponse(e.response.data);
     }

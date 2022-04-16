@@ -5,6 +5,9 @@ import PokemonDetail from "./pages/PokemonDetail";
 import MyPokemonList from "./pages/MyPokemonList";
 
 function App() {
+  const localData = localStorage.getItem("myListPokemon");
+  console.log(JSON.parse(localData));
+
   return (
     <div className="App">
       <BrowserRouter>

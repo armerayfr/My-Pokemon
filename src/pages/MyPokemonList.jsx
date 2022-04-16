@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Card, Container, Button, Row } from "react-bootstrap";
+import { Card, Container, Button, Row, Stack } from "react-bootstrap";
 
 function MyPokemonList() {
   return (
@@ -19,6 +19,26 @@ function MyPokemonList() {
             <div class="container">
               <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                 {/* render pokemon list */}
+                {/* <Link to={`/pokemon-detail/${props.name}`}> */}
+                <Card style={{ width: "18rem" }}>
+                  <Card.Img
+                    height={100}
+                    width={100}
+                    variant="top"
+                    src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/132.svg"
+                  />
+                  <Card.Body>
+                    <Stack gap={2}>
+                      <Card.Title>Ditto</Card.Title>
+                      <Card.Text>Kaizooo</Card.Text>
+                      <Stack direction="horizontal" gap={3}>
+                        <Button variant="primary">Rename</Button>
+                        <Button variant="primary">Release</Button>
+                      </Stack>
+                    </Stack>
+                  </Card.Body>
+                </Card>
+                {/* </Link> */}
               </div>
             </div>
           </Container>
