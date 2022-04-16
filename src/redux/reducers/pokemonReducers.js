@@ -9,7 +9,7 @@ export const myPokemonReducer = (state = INIT_STATE, action) => {
         ...state,
         myPokemonList: [...state.myPokemonList, action.payload],
       };
-    case "KEEP_LOGIN":
+    case "KEEP_DATA":
       return {
         ...state,
         myPokemonList: action.payload,
