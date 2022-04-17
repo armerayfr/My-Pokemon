@@ -1,10 +1,24 @@
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { Card, Container, Button, Row, Stack } from "react-bootstrap";
 
+import { URL_API } from "../../helper";
+import popUp from "../../utility/swalfire";
+
 function CardMyPokemons(props) {
-  const getIdBtn = (e) => {
-    console.log(e.target.value);
+  const pokemon = useSelector((state) => state.myPokemonReducer.myPokemonList);
+
+  const releasePokemonBtn = async (e) => {
+    try {
+      const id = e.target.value;
+      const { data } = await axios.get(`${URL_API}/release-pokemon?id=${id}`);
+      const output = pokemon.filter((el, i) => i !== +data.id);
+      localStorage.setItem("dataPokemon", JSON.stringify(output));
+      popUp.successResponse(data.message);
+    } catch (err) {
+      popUp.failedResponse(err.response.data);
+    }
   };
 
   return (
@@ -20,7 +34,7 @@ function CardMyPokemons(props) {
             </Button>
             <Button
               value={props.idx}
-              onClick={(e) => getIdBtn(e)}
+              onClick={(e) => releasePokemonBtn(e)}
               variant="primary"
             >
               Release

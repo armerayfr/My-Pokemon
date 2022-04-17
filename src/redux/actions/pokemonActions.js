@@ -25,3 +25,15 @@ export const keepData = function (payload) {
     }
   };
 };
+
+export const fetchPokemon = function () {
+  return (dispatch) => {
+    try {
+      dispatch({
+        type: "FETCH_POKEMONS",
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+};

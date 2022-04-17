@@ -9,6 +9,6 @@ const {
 
 router.get("/catch-pokemon", catchingPokemon);
 router.get("/release-pokemon", releasePokemon);
-router.post("/rename-pokemon", renamePokemon);
+router.get("/rename-pokemon", renamePokemon);
 
 module.exports = router;
