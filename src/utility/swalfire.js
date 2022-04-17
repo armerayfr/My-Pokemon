@@ -17,8 +17,9 @@ class Popup {
   async rename(str) {
     const { value: text } = await Swal.fire({
       title: `change your pokemon nickname`,
-      text: `${str}`,
+      text: `current nickname: ${str}`,
       padding: "3em",
+      imageUrl: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/132.svg`,
       color: "#716add",
       imageWidth: 400,
       imageHeight: 300,
@@ -29,7 +30,6 @@ class Popup {
                         left top
                         no-repeat`,
       input: "text",
-      inputLabel: "Gotcaa!!!",
       inputPlaceholder: "Type your nickname pokemon here...",
       inputAttributes: {
         "aria-label": "Type your nickname pokemon here...",
@@ -39,6 +39,8 @@ class Popup {
 
     if (text) {
       return text;
+    } else {
+      return str;
     }
   }
 

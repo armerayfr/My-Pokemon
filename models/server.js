@@ -1,5 +1,6 @@
 const cors = require("cors");
 const express = require("express");
+const { logError, returnError } = require("../utils/errorHandler");
 
 class Server {
   constructor() {
@@ -36,8 +37,8 @@ class Server {
       }
     });
 
-    // this.app.use(logError);
-    // this.app.use(returnError);
+    this.app.use(logError);
+    this.app.use(returnError);
   }
 
   listen() {

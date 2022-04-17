@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
 import axios from "axios";
 import { Card, Container, Button, Row, Stack } from "react-bootstrap";
 
@@ -17,8 +18,9 @@ function MyPokemonList() {
       const output = pokemon.filter((el, i) => i !== +data.id);
       localStorage.setItem("dataPokemon", JSON.stringify(output));
       popUp.successResponse(data.message);
+      window.location.reload();
     } catch (err) {
-      popUp.failedResponse(err.response.data);
+      popUp.failedResponse(err.response.data.name);
     }
   };
 
@@ -27,13 +29,15 @@ function MyPokemonList() {
       const id = e.target.value;
       const el = pokemon.filter((el, i) => +id === i)[0];
       if (el.versionName === undefined) el.versionName = 0;
-      const nickname = (await popUp.rename()) + "Rename";
+      const nickname = (await popUp.rename(el.name)) + "Rename";
       const { data } = await axios.get(
         `${URL_API}/rename-pokemon?versionName=${el.versionName}&nickname=${nickname}`
       );
       el.versionName = data.versionName;
       el.nickname = data.nickname;
       localStorage.setItem("dataPokemon", JSON.stringify(pokemon));
+
+      window.location.reload();
     } catch (err) {
       console.log(err);
     }
@@ -77,28 +81,30 @@ function MyPokemonList() {
   };
 
   return (
-    <div className="col-md-12 col-lg-12 px-md-4">
-      <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 className="h2">Your Pokemon List</h1>
-        <div className="btn-toolbar mb-2 mb-md-0">
-          <div className="btn-group me-2"></div>
+    <>
+      <div className="col-md-12 col-lg-12 px-md-4">
+        <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+          <h1 className="h2">Your Pokemon List</h1>
+          <div className="btn-toolbar mb-2 mb-md-0">
+            <div className="btn-group me-2"></div>
+          </div>
         </div>
-      </div>
 
-      <Card body className="mb-3">
-        <div className="container-fluid">
-          <Container>
-            <div class="container">
-              <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                {/* render pokemon list */}
+        <Card body className="mb-3">
+          <div className="container-fluid">
+            <Container>
+              <div class="container">
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                  {/* render pokemon list */}
 
-                {renderMyPokemons()}
+                  {renderMyPokemons()}
+                </div>
               </div>
-            </div>
-          </Container>
-        </div>
-      </Card>
-    </div>
+            </Container>
+          </div>
+        </Card>
+      </div>
+    </>
   );
 }
 

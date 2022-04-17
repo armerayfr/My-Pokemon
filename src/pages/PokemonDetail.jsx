@@ -67,7 +67,7 @@ function PokemonDetail(props) {
       setRedirect(true);
       dispatch(gotPokemon(pokemon, nickName));
     } catch (e) {
-      popUp.failedResponse(e.response.data);
+      popUp.failedResponse(e.response.data.name);
     }
   };
 

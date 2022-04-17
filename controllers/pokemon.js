@@ -1,28 +1,29 @@
 const pokemon = require("../models/pokemon");
+const { Api404Error } = require("../utils/Error");
 
 const catchingPokemon = async (req, res, next) => {
   try {
     if (!pokemon.isGetPokemon(0.5)) {
-      res.status(404).send("Gagal mendapatkan Pokemon");
+      throw new Api404Error("Gagal mendapatkan pokemon");
     }
 
     res.status(201).send(`Berhasil mendapatkan ${req.query.name}`);
   } catch (err) {
-    console.log(err);
+    next(err);
   }
 };
 
 const releasePokemon = async (req, res, next) => {
   try {
     if (!pokemon.isPrimeNumber()) {
-      res.status(404).send("Gagal melepas Pokemon");
+      throw new Api404Error("Gagal melepaskan pokemon");
     }
 
     res
       .status(200)
       .send({ message: "sukses melepas pokemon", id: req.query.id });
   } catch (err) {
-    console.log(err);
+    next(err);
   }
 };
 
@@ -32,7 +33,7 @@ const renamePokemon = async (req, res, next) => {
     const nickname = req.query.nickname.replace("Rename", `-${fibSeq}`);
     res.status(200).send({ nickname, versionName: ++req.query.versionName });
   } catch (err) {
-    console.log(err);
+    next(err);
   }
 };
 
