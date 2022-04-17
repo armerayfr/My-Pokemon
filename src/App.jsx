@@ -9,14 +9,14 @@ import MyPokemonList from "./pages/MyPokemonList";
 import { keepData } from "./redux/actions/pokemonActions";
 
 function App() {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-  // const localData = localStorage.getItem("myListPokemon");
-  // if (localData) {
-  //   const myPokemon = JSON.parse(localData);
+  const localData = localStorage.getItem("dataPokemon");
+  if (localData) {
+    const myPokemon = JSON.parse(localData);
 
-  //   dispatch(keepData(myPokemon));
-  // }
+    dispatch(keepData(myPokemon));
+  }
 
   return (
     <div className="App">

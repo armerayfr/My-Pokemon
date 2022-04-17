@@ -5,7 +5,7 @@ import { Card, Container, Button, Row, Stack } from "react-bootstrap";
 
 function MyPokemonList() {
   const pokemon = useSelector((state) => state.myPokemonReducer.myPokemonList);
-  console.log(pokemon);
+  localStorage.setItem("dataPokemon", JSON.stringify(pokemon));
 
   const renderMyPokemons = () => {
     return pokemon.map((el, i) => {
@@ -48,26 +48,6 @@ function MyPokemonList() {
             <div class="container">
               <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                 {/* render pokemon list */}
-                {/* <Link to={`/pokemon-detail/${props.name}`}> */}
-                <Card style={{ width: "18rem" }}>
-                  <Card.Img
-                    height={100}
-                    width={100}
-                    variant="top"
-                    src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/132.svg"
-                  />
-                  <Card.Body>
-                    <Stack gap={2}>
-                      <Card.Title>Ditto</Card.Title>
-                      <Card.Text>Kaizooo</Card.Text>
-                      <Stack direction="horizontal" gap={3}>
-                        <Button variant="primary">Rename</Button>
-                        <Button variant="primary">Release</Button>
-                      </Stack>
-                    </Stack>
-                  </Card.Body>
-                </Card>
-                {/* </Link> */}
 
                 {renderMyPokemons()}
               </div>
