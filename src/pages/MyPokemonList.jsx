@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { useSelector } from "react-redux";
 import { Card, Container, Button, Row, Stack } from "react-bootstrap";
+import CardMyPokemons from "../components/Card_My_Pokemons/CardMyPokemons";
 
 function MyPokemonList() {
   const pokemon = useSelector((state) => state.myPokemonReducer.myPokemonList);
@@ -10,24 +10,13 @@ function MyPokemonList() {
   const renderMyPokemons = () => {
     return pokemon.map((el, i) => {
       return (
-        <Card style={{ width: "18rem" }}>
-          <Card.Img
-            height={100}
-            width={100}
-            variant="top"
-            src={el.sprites.other.dream_world.front_default}
-          />
-          <Card.Body>
-            <Stack gap={2}>
-              <Card.Title>{el.name}</Card.Title>
-              <Card.Text>{el.nickname}</Card.Text>
-              <Stack direction="horizontal" gap={3}>
-                <Button variant="primary">Rename</Button>
-                <Button variant="primary">Release</Button>
-              </Stack>
-            </Stack>
-          </Card.Body>
-        </Card>
+        <CardMyPokemons
+          key={i}
+          idx={i}
+          img={el.sprites.other.dream_world.front_default}
+          name={el.name}
+          nickname={el.nickname}
+        />
       );
     });
   };
